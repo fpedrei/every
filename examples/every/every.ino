@@ -1,5 +1,3 @@
-#include <Arduino.h>
-
 #include <every.h>
 
 void setup() {
@@ -7,12 +5,6 @@ void setup() {
 }
 
 void loop() {
-
-#ifdef LED_INTERNAL
- 	every(200, millis, [](){
-		digitalWrite(LED_INTERNAL, !digitalRead(LED_INTERNAL));
-	});
-#endif
  
 	every(1, hours, [](){
 		printf("3600s : %li\r\n", millis());
@@ -28,5 +20,11 @@ void loop() {
 
 	every(7000, millis, [](){
 		printf("7000ms: %li\r\n", millis());
-        });
+	});
+
+#ifdef LED_INTERNAL
+	every(200000, micros, [](){
+		digitalWrite(LED_INTERNAL, !digitalRead(LED_INTERNAL));
+	});
+#endif
 }
